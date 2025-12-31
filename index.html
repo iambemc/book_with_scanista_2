@@ -9,6 +9,9 @@
 <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
 <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
 
+<!-- Icons (FontAwesome) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 <style>
 body { font-family: Arial, sans-serif; margin: 0; background:#fff; color:#333; line-height:1.6; }
 header { background:#ffeb3b; padding:30px 20px; text-align:center; }
@@ -29,6 +32,66 @@ button:hover { background:#555; }
 .framework ul { margin:0; padding-left:20px; }
 .cta-button { margin-top:15px; display:inline-block; background:#222; color:#fff; padding:12px 25px; border-radius:6px; text-decoration:none; }
 .cta-button:hover { background:#555; }
+#price { font-weight: bold; font-size: 1.5em; color: #ffeb3b; transition: all 0.3s ease; }
+.addon-info { font-size:0.9em; color:#555; display:none; padding-left:15px; }
+.sticky-cta { position:fixed; bottom:0; left:0; width:100%; background:#222; color:#fff; text-align:center; padding:15px; z-index:999; display:none; }
+.sticky-cta button { width:auto; padding:10px 20px; }
+.testimonials { background:#f9f9f9; padding:20px; border-radius:8px; margin-top:30px; }
+.step-tracker { display:flex; justify-content:space-between; margin-top:15px; }
+.step-tracker div { flex:1; text-align:center; padding:10px; background:#eee; border-radius:6px; margin-right:5px; font-size:0.9em; }
+.step-tracker div:last-child { margin-right:0; }
+@media (max-width:768px){ .step-tracker { flex-direction:column; } .step-tracker div { margin-bottom:5px; } .step-tracker div:last-child { margin-bottom:0; } .sticky-cta { display:block; } }
+
+/* Interactive Flow */
+.interactive-flow {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:15px;
+  flex-wrap:wrap;
+  margin-top:20px;
+}
+
+.flow-step {
+  position:relative;
+  padding:20px 25px;
+  border-radius:10px;
+  background:#eee;
+  cursor:pointer;
+  min-width:150px;
+  text-align:center;
+  transition: all 0.3s ease;
+  font-weight:bold;
+  box-shadow:0 4px 6px rgba(0,0,0,0.1);
+}
+
+.flow-step.active { background:#ffeb3b; color:#000; transform: scale(1.1); }
+
+.flow-step span { display:block; }
+
+.flow-step i { display:block; font-size:1.5em; margin-bottom:8px; }
+
+.tooltip {
+  display:none;
+  position:absolute;
+  bottom:110%;
+  left:50%;
+  transform:translateX(-50%);
+  background:#222;
+  color:#fff;
+  padding:10px;
+  border-radius:6px;
+  width:200px;
+  font-size:0.85em;
+  text-align:center;
+  z-index:100;
+}
+
+.flow-step:hover .tooltip { display:block; }
+
+@media (max-width:768px){
+  .interactive-flow { flex-direction:column; }
+}
 </style>
 </head>
 <body>
@@ -53,13 +116,16 @@ button:hover { background:#555; }
 
 <h3>Optional Add-Ons:</h3>
 <input type="checkbox" id="summary" value="50" onchange="updatePrice()">
-<label for="summary">Written Follow-Up Summary — $50</label><br>
+<label for="summary">Written Follow-Up Summary — $50</label>
+<div class="addon-info" id="info-summary">Detailed written summary of discussion and next steps.</div>
 
 <input type="checkbox" id="support" value="25" onchange="updatePrice()">
-<label for="support">Email/Text Support Window — $25</label><br>
+<label for="support">Email/Text Support Window — $25</label>
+<div class="addon-info" id="info-support">Direct support via email or text within 48 hours of session.</div>
 
 <input type="checkbox" id="urgent" value="75" onchange="updatePrice()">
 <label for="urgent">Urgent Booking — $75</label>
+<div class="addon-info" id="info-urgent">Priority scheduling within 24 hours.</div>
 
 <p><strong>Total Due:</strong> $<span id="price">100</span></p>
 <a id="paymentLink" href="#" target="_blank"><button>Proceed to Secure Payment</button></a>
@@ -94,7 +160,24 @@ By submitting this intake form, you acknowledge and agree to these terms.
 </div>
 </div>
 
-<!-- SECTION 3: SCANISTA METHOD -->
+<!-- SECTION 3: FAQ -->
+<div class="section">
+<h2>FAQ</h2>
+<div class="accordion">
+  <div class="accordion-header">Is this legal or medical advice?</div>
+  <div class="accordion-content">No, the Scanista Method™ provides structured facilitation only.</div>
+</div>
+<div class="accordion">
+  <div class="accordion-header">Are sessions confidential?</div>
+  <div class="accordion-content">Yes, all client information is treated confidentially.</div>
+</div>
+<div class="accordion">
+  <div class="accordion-header">Refunds?</div>
+  <div class="accordion-content">No refunds once payment and booking are completed.</div>
+</div>
+</div>
+
+<!-- SECTION 4: SCANISTA METHOD -->
 <div class="section">
 <h2>The Scanista Method™</h2>
 <p>The Scanista Method™ is a structured, neutral facilitation framework to clarify misalignment, de-escalate communication, and guide informed next steps.</p>
@@ -110,16 +193,37 @@ By submitting this intake form, you acknowledge and agree to these terms.
 </div>
 </div>
 
-<!-- SECTION 3.5: SCANISTA METHOD FLOW DIAGRAM (Placeholder) -->
+<!-- SECTION 4.5: INTERACTIVE FLOW DIAGRAM -->
 <div class="section">
 <h2>Scanista Method™ Flow</h2>
-<p>Visual representation of the process from Consultation → Scanista Method™ → Certification.</p>
-<div style="background:#f0f0f0; border:2px dashed #ccc; border-radius:8px; text-align:center; padding:60px 20px; color:#999; font-size:1.1em;">
-  [Flow Diagram Placeholder — Image or SVG to be inserted here]
+<p>Click each step to learn more about the process.</p>
+
+<div class="interactive-flow">
+  <div class="flow-step active" data-info="Initial consultation: Gather your situation and objectives.">
+    <i class="fa-solid fa-user"></i>
+    <span>1. Consultation</span>
+    <div class="tooltip"></div>
+  </div>
+  <div class="flow-step" data-info="Scanista Method™: Neutral facilitation, decision mapping, and de-escalation.">
+    <i class="fa-solid fa-handshake-angle"></i>
+    <span>2. Scanista Method™</span>
+    <div class="tooltip"></div>
+  </div>
+  <div class="flow-step" data-info="Certification: Apply your learnings professionally or continue follow-ups.">
+    <i class="fa-solid fa-certificate"></i>
+    <span>3. Certification</span>
+    <div class="tooltip"></div>
+  </div>
+</div>
+
+<div class="step-tracker">
+  <div style="background:#ffeb3b; color:#000;">Consultation</div>
+  <div style="background:#222; color:#fff;">Scanista Method™</div>
+  <div style="background:#ffeb3b; color:#000;">Certification</div>
 </div>
 </div>
 
-<!-- SECTION 4: CERTIFICATION -->
+<!-- SECTION 5: CERTIFICATION -->
 <div class="section">
 <h2>Become Scanista Certified</h2>
 <p>Learn and apply the Scanista Method™ professionally through our certification tiers:</p>
@@ -152,17 +256,74 @@ By submitting this intake form, you acknowledge and agree to these terms.
 <a class="cta-button" href="#">Join Waitlist / Learn More</a>
 </div>
 
-<!-- SECTION 5: FAQ -->
-<div class="section">
-<h2>FAQ</h2>
-<div class="accordion">
-  <div class="accordion-header">Is this legal or medical advice?</div>
-  <div class="accordion-content">No, the Scanista Method™ provides structured facilitation only.</div>
+<!-- SECTION 6: TESTIMONIALS -->
+<div class="section testimonials">
+<h2>What Clients Say</h2>
+<p>[Insert client testimonial placeholder: "Scanista helped me clarify my next steps in just one session!"]</p>
+<p>[Add 2–3 more testimonials or quotes]</p>
 </div>
-<div class="accordion">
-  <div class="accordion-header">Are sessions confidential?</div>
-  <div class="accordion-content">Yes, all client information is treated confidentially.</div>
+
+</div> <!-- end container -->
+
+<!-- Sticky CTA -->
+<div class="sticky-cta">
+<button onclick="window.scrollTo({top:0, behavior:'smooth'})">Book Now / Proceed to Payment</button>
 </div>
-<div class="accordion">
-  <div class="accordion-header">Refunds?</div>
-  <div class="accordion-content">No refund
+
+<script>
+function updatePrice() {
+  let servicePrice = parseInt(document.getElementById('serviceSelect').value);
+  let summaryPrice = document.getElementById('summary').checked ? parseInt(document.getElementById('summary').value) : 0;
+  let supportPrice = document.getElementById('support').checked ? parseInt(document.getElementById('support').value) : 0;
+  let urgentPrice = document.getElementById('urgent').checked ? parseInt(document.getElementById('urgent').value) : 0;
+
+  let total = servicePrice + summaryPrice + supportPrice + urgentPrice;
+  let priceEl = document.getElementById('price');
+  priceEl.innerText = total;
+
+  // Animate price briefly
+  priceEl.style.transform = "scale(1.3)";
+  setTimeout(()=>{ priceEl.style.transform="scale(1)"; }, 300);
+
+  // Update serviceField for intake
+  let serviceText = document.getElementById('serviceSelect').options[document.getElementById('serviceSelect').selectedIndex].text;
+  let addOns = [];
+  if(document.getElementById('summary').checked) addOns.push("Written Follow-Up Summary");
+  if(document.getElementById('support').checked) addOns.push("Email/Text Support Window");
+  if(document.getElementById('urgent').checked) addOns.push("Urgent Booking");
+  document.getElementById('serviceField').value = serviceText + (addOns.length > 0 ? " + " + addOns.join(", ") : "");
+
+  // Update Stripe link placeholder
+  const links = {100:'https://buy.stripe.com/INITIAL',75:'https://buy.stripe.com/FOLLOWUP'};
+  document.getElementById('paymentLink').href = links[servicePrice] || '#';
+
+  // Show addon info if checked
+  document.getElementById('info-summary').style.display = document.getElementById('summary').checked ? 'block' : 'none';
+  document.getElementById('info-support').style.display = document.getElementById('support').checked ? 'block' : 'none';
+  document.getElementById('info-urgent').style.display = document.getElementById('urgent').checked ? 'block' : 'none';
+}
+
+// Agreement modal
+function openModal() { document.getElementById('agreementModal').style.display='block'; return false; }
+function acceptAgreement() { document.getElementById('agreementModal').style.display='none'; document.querySelector('form').submit(); }
+
+// Accordion
+document.querySelectorAll('.accordion-header').forEach(h=>{
+  h.onclick=()=>{const c=h.nextElementSibling; c.style.display=c.style.display==='block'?'none':'block';};
+});
+
+// Interactive Flow
+const steps = document.querySelectorAll('.flow-step');
+steps.forEach(step => {
+  step.onclick = () => {
+    steps.forEach(s => s.classList.remove('active'));
+    step.classList.add('active');
+    
+    const tooltip = step.querySelector('.tooltip');
+    tooltip.innerText = step.dataset.info;
+  }
+});
+</script>
+
+</body>
+</html>
