@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Scanista — Consultation & Certification</title>
+<title>Scanista — Consultation & Business System</title>
 
 <!-- Calendly -->
 <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
@@ -98,7 +98,7 @@ button:hover { background:#555; }
 
 <header>
   <h1>Scanista</h1>
-  <p>Structured Consultation & Decision Alignment</p>
+  <p>Structured Consultation & Business System</p>
 </header>
 
 <div class="container">
@@ -172,158 +172,3 @@ By submitting this intake form, you acknowledge and agree to these terms.
   <div class="accordion-content">Yes, all client information is treated confidentially.</div>
 </div>
 <div class="accordion">
-  <div class="accordion-header">Refunds?</div>
-  <div class="accordion-content">No refunds once payment and booking are completed.</div>
-</div>
-</div>
-
-<!-- SECTION 4: SCANISTA METHOD -->
-<div class="section">
-<h2>The Scanista Method™</h2>
-<p>The Scanista Method™ is a structured, neutral facilitation framework to clarify misalignment, de-escalate communication, and guide informed next steps.</p>
-<div class="framework">
-<h3>Core Pillars:</h3>
-<ul>
-<li><strong>Structured Intake:</strong> Gather essential information, prior attempts, and constraints.</li>
-<li><strong>Neutral Facilitation:</strong> Practitioner guides without advocating or diagnosing.</li>
-<li><strong>Decision Mapping:</strong> Explore options, trade-offs, and consequences.</li>
-<li><strong>Accountability & Closure:</strong> Documented takeaways and next steps.</li>
-</ul>
-<p><strong>Boundaries:</strong> Not therapy, legal, or medical advice.</p>
-</div>
-</div>
-
-<!-- SECTION 4.5: INTERACTIVE FLOW DIAGRAM -->
-<div class="section">
-<h2>Scanista Method™ Flow</h2>
-<p>Click each step to learn more about the process.</p>
-
-<div class="interactive-flow">
-  <div class="flow-step active" data-info="Initial consultation: Gather your situation and objectives.">
-    <i class="fa-solid fa-user"></i>
-    <span>1. Consultation</span>
-    <div class="tooltip"></div>
-  </div>
-  <div class="flow-step" data-info="Scanista Method™: Neutral facilitation, decision mapping, and de-escalation.">
-    <i class="fa-solid fa-handshake-angle"></i>
-    <span>2. Scanista Method™</span>
-    <div class="tooltip"></div>
-  </div>
-  <div class="flow-step" data-info="Certification: Apply your learnings professionally or continue follow-ups.">
-    <i class="fa-solid fa-certificate"></i>
-    <span>3. Certification</span>
-    <div class="tooltip"></div>
-  </div>
-</div>
-
-<div class="step-tracker">
-  <div style="background:#ffeb3b; color:#000;">Consultation</div>
-  <div style="background:#222; color:#fff;">Scanista Method™</div>
-  <div style="background:#ffeb3b; color:#000;">Certification</div>
-</div>
-</div>
-
-<!-- SECTION 5: CERTIFICATION -->
-<div class="section">
-<h2>Become Scanista Certified</h2>
-<p>Learn and apply the Scanista Method™ professionally through our certification tiers:</p>
-
-<h3>Tier 1 — Foundation Training</h3>
-<ul>
-<li>Self-paced modules</li>
-<li>Worksheets and templates</li>
-<li>Completion acknowledgment</li>
-<li>Price: $297–$497</li>
-</ul>
-
-<h3>Tier 2 — Certified Practitioner</h3>
-<ul>
-<li>Scenario assessments</li>
-<li>Code of conduct</li>
-<li>Digital certificate</li>
-<li>Directory listing</li>
-<li>Price: $697–$997</li>
-</ul>
-
-<h3>Tier 3 — Licensed Practitioner</h3>
-<ul>
-<li>Certification + license to use Scanista Method™ name</li>
-<li>Approved language & pricing framework</li>
-<li>Optional white-label system access</li>
-<li>Setup: $500–$1,000 | Monthly: $49–$99</li>
-</ul>
-
-<a class="cta-button" href="#">Join Waitlist / Learn More</a>
-</div>
-
-<!-- SECTION 6: TESTIMONIALS -->
-<div class="section testimonials">
-<h2>What Clients Say</h2>
-<p>[Insert client testimonial placeholder: "Scanista helped me clarify my next steps in just one session!"]</p>
-<p>[Add 2–3 more testimonials or quotes]</p>
-</div>
-
-</div> <!-- end container -->
-
-<!-- Sticky CTA -->
-<div class="sticky-cta">
-<button onclick="window.scrollTo({top:0, behavior:'smooth'})">Book Now / Proceed to Payment</button>
-</div>
-
-<script>
-function updatePrice() {
-  let servicePrice = parseInt(document.getElementById('serviceSelect').value);
-  let summaryPrice = document.getElementById('summary').checked ? parseInt(document.getElementById('summary').value) : 0;
-  let supportPrice = document.getElementById('support').checked ? parseInt(document.getElementById('support').value) : 0;
-  let urgentPrice = document.getElementById('urgent').checked ? parseInt(document.getElementById('urgent').value) : 0;
-
-  let total = servicePrice + summaryPrice + supportPrice + urgentPrice;
-  let priceEl = document.getElementById('price');
-  priceEl.innerText = total;
-
-  // Animate price briefly
-  priceEl.style.transform = "scale(1.3)";
-  setTimeout(()=>{ priceEl.style.transform="scale(1)"; }, 300);
-
-  // Update serviceField for intake
-  let serviceText = document.getElementById('serviceSelect').options[document.getElementById('serviceSelect').selectedIndex].text;
-  let addOns = [];
-  if(document.getElementById('summary').checked) addOns.push("Written Follow-Up Summary");
-  if(document.getElementById('support').checked) addOns.push("Email/Text Support Window");
-  if(document.getElementById('urgent').checked) addOns.push("Urgent Booking");
-  document.getElementById('serviceField').value = serviceText + (addOns.length > 0 ? " + " + addOns.join(", ") : "");
-
-  // Update Stripe link placeholder
-  const links = {100:'https://buy.stripe.com/INITIAL',75:'https://buy.stripe.com/FOLLOWUP'};
-  document.getElementById('paymentLink').href = links[servicePrice] || '#';
-
-  // Show addon info if checked
-  document.getElementById('info-summary').style.display = document.getElementById('summary').checked ? 'block' : 'none';
-  document.getElementById('info-support').style.display = document.getElementById('support').checked ? 'block' : 'none';
-  document.getElementById('info-urgent').style.display = document.getElementById('urgent').checked ? 'block' : 'none';
-}
-
-// Agreement modal
-function openModal() { document.getElementById('agreementModal').style.display='block'; return false; }
-function acceptAgreement() { document.getElementById('agreementModal').style.display='none'; document.querySelector('form').submit(); }
-
-// Accordion
-document.querySelectorAll('.accordion-header').forEach(h=>{
-  h.onclick=()=>{const c=h.nextElementSibling; c.style.display=c.style.display==='block'?'none':'block';};
-});
-
-// Interactive Flow
-const steps = document.querySelectorAll('.flow-step');
-steps.forEach(step => {
-  step.onclick = () => {
-    steps.forEach(s => s.classList.remove('active'));
-    step.classList.add('active');
-    
-    const tooltip = step.querySelector('.tooltip');
-    tooltip.innerText = step.dataset.info;
-  }
-});
-</script>
-
-</body>
-</html>
