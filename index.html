@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scanista — Conciliation & Certification</title>
+
+<!-- Calendly -->
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+
+<style>
+body { font-family: Arial, sans-serif; margin: 0; background:#fff; color:#333; line-height:1.6; }
+header { background:#ffeb3b; padding:30px 20px; text-align:center; }
+.container { max-width:900px; margin:auto; padding:20px; }
+.section { margin-bottom:50px; }
+h2 { margin-top:0; color:#222; }
+h3 { margin-top:0; color:#333; }
+select, input, textarea, button { width:100%; padding:12px; margin-top:10px; border-radius:6px; border:1px solid #ccc; }
+button { background:#333; color:#fff; font-size:1.1em; cursor:pointer; border:none; }
+button:hover { background:#555; }
+.notice { font-size:0.9em; color:#666; }
+.accordion { border:1px solid #ddd; border-radius:8px; margin-bottom:10px; }
+.accordion-header { padding:15px; font-weight:bold; cursor:pointer; }
+.accordion-content { display:none; padding:15px; }
+.modal { display:none; position:fixed; z-index:999; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.6); }
+.modal-content { background:#fff; padding:20px; max-width:600px; margin:10% auto; border-radius:8px; }
+.framework { background:#f9f9f9; padding:15px; border-radius:8px; margin-top:15px; }
+.framework ul { margin:0; padding-left:20px; }
+.cta-button { margin-top:15px; display:inline-block; background:#222; color:#fff; padding:12px 25px; border-radius:6px; text-decoration:none; }
+.cta-button:hover { background:#555; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Scanista</h1>
+  <p>Structured Conciliation & Decision Alignment</p>
+</header>
+
+<div class="container">
+
+<!-- SECTION 1: BOOK A SESSION -->
+<div class="section">
+<h2>Book a Conciliation Session</h2>
+<select id="serviceSelect" onchange="updatePrice()">
+  <option value="100">Initial Consultation — $100 (90 min)</option>
+  <option value="75">Follow-Up Session — $75 (90 min)</option>
+  <option value="200">Starter Package — $200</option>
+  <option value="325">Growth Package — $325</option>
+  <option value="500">Premium Package — $500</option>
+</select>
+<p><strong>Total Due:</strong> $<span id="price">100</span></p>
+<a id="paymentLink" href="#" target="_blank"><button>Proceed to Secure Payment</button></a>
+<p class="notice">Sessions valid for 60 days. Payment required before booking.</p>
+<div class="calendly-inline-widget" data-url="https://calendly.com/scanista/90min" style="min-width:320px;height:700px;"></div>
+</div>
+
+<!-- SECTION 2: SCANISTA METHOD -->
+<div class="section">
+<h2>The Scanista Method™</h2>
+<p>The Scanista Method™ is a structured, neutral conciliation framework designed to clarify misalignment, de-escalate communication, and guide informed next steps.</p>
+<div class="framework">
+<h3>Core Pillars:</h3>
+<ul>
+<li><strong>Structured Intake:</strong> Gather essential information, prior attempts, and constraints.</li>
+<li><strong>Neutral Facilitation:</strong> Practitioner guides without advocating or diagnosing.</li>
+<li><strong>Decision Mapping:</strong> Explore options, trade-offs, and consequences.</li>
+<li><strong>Accountability & Closure:</strong> Documented takeaways and next steps.</li>
+</ul>
+<p><strong>Boundaries:</strong> Not therapy, legal, or medical advice.</p>
+</div>
+</div>
+
+<!-- SECTION 3: CERTIFICATION -->
+<div class="section">
+<h2>Become Scanista Certified</h2>
+<p>Learn and apply the Scanista Method™ professionally through our certification tiers:</p>
+
+<h3>Tier 1 — Foundation Training</h3>
+<ul>
+<li>Self-paced modules</li>
+<li>Worksheets and templates</li>
+<li>Completion acknowledgment</li>
+<li>Price: $297–$497</li>
+</ul>
+
+<h3>Tier 2 — Certified Practitioner</h3>
+<ul>
+<li>Scenario assessments</li>
+<li>Code of conduct</li>
+<li>Digital certificate</li>
+<li>Directory listing</li>
+<li>Price: $697–$997</li>
+</ul>
+
+<h3>Tier 3 — Licensed Practitioner</h3>
+<ul>
+<li>Certification + license to use Scanista Method™ name</li>
+<li>Approved language & pricing framework</li>
+<li>Optional white-label system access</li>
+<li>Setup: $500–$1,000 | Monthly: $49–$99</li>
+</ul>
+
+<a class="cta-button" href="#">Join Waitlist / Learn More</a>
+</div>
+
+<!-- SECTION 4: CLIENT INTAKE FORM -->
+<div class="section">
+<h2>Client Intake (Required)</h2>
+<form action="https://hooks.zapier.com/hooks/catch/XXXXX/XXXXX" method="POST">
+<input name="name" placeholder="Full Name" required>
+<input name="email" placeholder="Email Address" required>
+<textarea name="details" placeholder="Brief summary of your situation"></textarea>
+<input type="hidden" name="service" id="serviceField">
+<button type="submit">Submit Intake</button>
+</form>
+<p class="notice">Your information is confidential and used only for session preparation.</p>
+</div>
+
+<!-- SECTION 5: FAQ -->
+<div class="section">
+<h2>FAQ</h2>
+<div class="accordion">
+  <div class="accordion-header">Is this legal or medical advice?</div>
+  <div class="accordion-content">No, the Scanista Method™ provides structured facilitation only.</div>
+</div>
+<div class="accordion">
+  <div class="accordion-header">Are sessions confidential?</div>
+  <div class="accordion-content">Yes, all client information is treated confidentially.</div>
+</div>
+<div class="accordion">
+  <div class="accordion-header">Refunds?</div>
+  <div class="accordion-content">No refunds once payment and booking are completed.</div>
+</div>
+</div>
+
+<!-- MODAL: AGREEMENT -->
+<div class="modal" id="agreementModal">
+<div class="modal-content">
+<h3>Conciliation Agreement</h3>
+<p>
+This service provides guidance and facilitation only.  
+No legal, medical, or therapeutic advice is given.  
+All sessions are confidential and non-refundable once scheduled.
+</p>
+<button onclick="closeModal()">I Agree</button>
+</div>
+</div>
+
+</div> <!-- end container -->
+
+<script>
+function updatePrice() {
+  const select = document.getElementById('serviceSelect');
+  const price = select.value;
+  document.getElementById('price').innerText = price;
+  document.getElementById('serviceField').value = select.options[select.selectedIndex].text;
+  const links = {
+    100: 'https://buy.stripe.com/INITIAL',
+    75: 'https://buy.stripe.com/FOLLOWUP',
+    200: 'https://buy.stripe.com/STARTER',
+    325: 'https://buy.stripe.com/GROWTH',
+    500: 'https://buy.stripe.com/PREMIUM'
+  };
+  document.getElementById('paymentLink').href = links[price];
+}
+
+function openModal() {
+  document.getElementById('agreementModal').style.display='block';
+}
+function closeModal() {
+  document.getElementById('agreementModal').style.display='none';
+}
+
+// Accordion
+document.querySelectorAll('.accordion-header').forEach(h => {
+  h.onclick = () => {
+    const c = h.nextElementSibling;
+    c.style.display = c.style.display === 'block' ? 'none' : 'block';
+  };
+});
+</script>
+
+</body>
+</html>
