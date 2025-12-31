@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Scanista — Conciliation & Certification</title>
+<title>Scanista — Consultation & Certification</title>
 
 <!-- Calendly -->
 <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
@@ -35,31 +35,69 @@ button:hover { background:#555; }
 
 <header>
   <h1>Scanista</h1>
-  <p>Structured Conciliation & Decision Alignment</p>
+  <p>Structured Consultation & Decision Alignment</p>
 </header>
 
 <div class="container">
 
-<!-- SECTION 1: BOOK A SESSION -->
+<!-- SECTION 1: CONSULTATION / BOOKING -->
 <div class="section">
-<h2>Book a Conciliation Session</h2>
+<h2>Book a Consultation</h2>
+<p>Choose your session and optional add-ons below. Total updates dynamically.</p>
+
+<label for="serviceSelect">Select Service:</label>
 <select id="serviceSelect" onchange="updatePrice()">
   <option value="100">Initial Consultation — $100 (90 min)</option>
-  <option value="75">Follow-Up Session — $75 (90 min)</option>
-  <option value="200">Starter Package — $200</option>
-  <option value="325">Growth Package — $325</option>
-  <option value="500">Premium Package — $500</option>
+  <option value="75">Follow-Up Consultation — $75 (90 min)</option>
 </select>
+
+<h3>Optional Add-Ons:</h3>
+<input type="checkbox" id="summary" value="50" onchange="updatePrice()">
+<label for="summary">Written Follow-Up Summary — $50</label><br>
+
+<input type="checkbox" id="support" value="25" onchange="updatePrice()">
+<label for="support">Email/Text Support Window — $25</label><br>
+
+<input type="checkbox" id="urgent" value="75" onchange="updatePrice()">
+<label for="urgent">Urgent Booking — $75</label>
+
 <p><strong>Total Due:</strong> $<span id="price">100</span></p>
 <a id="paymentLink" href="#" target="_blank"><button>Proceed to Secure Payment</button></a>
 <p class="notice">Sessions valid for 60 days. Payment required before booking.</p>
 <div class="calendly-inline-widget" data-url="https://calendly.com/scanista/90min" style="min-width:320px;height:700px;"></div>
 </div>
 
-<!-- SECTION 2: SCANISTA METHOD -->
+<!-- SECTION 2: CLIENT INTAKE FORM -->
+<div class="section">
+<h2>Client Intake (Required)</h2>
+<form onsubmit="return openModal()" action="https://hooks.zapier.com/hooks/catch/XXXXX/XXXXX" method="POST">
+<input name="name" placeholder="Full Name" required>
+<input name="email" placeholder="Email Address" required>
+<textarea name="details" placeholder="Brief summary of your situation"></textarea>
+<input type="hidden" name="service" id="serviceField">
+<button type="submit">Submit Intake</button>
+</form>
+<p class="notice">Your information is confidential and used only for session preparation. You must agree to the Conciliation Agreement before submission.</p>
+</div>
+
+<!-- MODAL: CONCILIATION AGREEMENT -->
+<div class="modal" id="agreementModal">
+<div class="modal-content">
+<h3>Conciliation Agreement</h3>
+<p>
+This service provides guidance and facilitation only.  
+No legal, medical, or therapeutic advice is given.  
+All sessions are confidential and non-refundable once scheduled.  
+By submitting this intake form, you acknowledge and agree to these terms.
+</p>
+<button onclick="acceptAgreement()">I Agree</button>
+</div>
+</div>
+
+<!-- SECTION 3: SCANISTA METHOD -->
 <div class="section">
 <h2>The Scanista Method™</h2>
-<p>The Scanista Method™ is a structured, neutral conciliation framework designed to clarify misalignment, de-escalate communication, and guide informed next steps.</p>
+<p>The Scanista Method™ is a structured, neutral facilitation framework to clarify misalignment, de-escalate communication, and guide informed next steps.</p>
 <div class="framework">
 <h3>Core Pillars:</h3>
 <ul>
@@ -72,7 +110,16 @@ button:hover { background:#555; }
 </div>
 </div>
 
-<!-- SECTION 3: CERTIFICATION -->
+<!-- SECTION 3.5: SCANISTA METHOD FLOW DIAGRAM (Placeholder) -->
+<div class="section">
+<h2>Scanista Method™ Flow</h2>
+<p>Visual representation of the process from Consultation → Scanista Method™ → Certification.</p>
+<div style="background:#f0f0f0; border:2px dashed #ccc; border-radius:8px; text-align:center; padding:60px 20px; color:#999; font-size:1.1em;">
+  [Flow Diagram Placeholder — Image or SVG to be inserted here]
+</div>
+</div>
+
+<!-- SECTION 4: CERTIFICATION -->
 <div class="section">
 <h2>Become Scanista Certified</h2>
 <p>Learn and apply the Scanista Method™ professionally through our certification tiers:</p>
@@ -105,19 +152,6 @@ button:hover { background:#555; }
 <a class="cta-button" href="#">Join Waitlist / Learn More</a>
 </div>
 
-<!-- SECTION 4: CLIENT INTAKE FORM -->
-<div class="section">
-<h2>Client Intake (Required)</h2>
-<form action="https://hooks.zapier.com/hooks/catch/XXXXX/XXXXX" method="POST">
-<input name="name" placeholder="Full Name" required>
-<input name="email" placeholder="Email Address" required>
-<textarea name="details" placeholder="Brief summary of your situation"></textarea>
-<input type="hidden" name="service" id="serviceField">
-<button type="submit">Submit Intake</button>
-</form>
-<p class="notice">Your information is confidential and used only for session preparation.</p>
-</div>
-
 <!-- SECTION 5: FAQ -->
 <div class="section">
 <h2>FAQ</h2>
@@ -131,56 +165,4 @@ button:hover { background:#555; }
 </div>
 <div class="accordion">
   <div class="accordion-header">Refunds?</div>
-  <div class="accordion-content">No refunds once payment and booking are completed.</div>
-</div>
-</div>
-
-<!-- MODAL: AGREEMENT -->
-<div class="modal" id="agreementModal">
-<div class="modal-content">
-<h3>Conciliation Agreement</h3>
-<p>
-This service provides guidance and facilitation only.  
-No legal, medical, or therapeutic advice is given.  
-All sessions are confidential and non-refundable once scheduled.
-</p>
-<button onclick="closeModal()">I Agree</button>
-</div>
-</div>
-
-</div> <!-- end container -->
-
-<script>
-function updatePrice() {
-  const select = document.getElementById('serviceSelect');
-  const price = select.value;
-  document.getElementById('price').innerText = price;
-  document.getElementById('serviceField').value = select.options[select.selectedIndex].text;
-  const links = {
-    100: 'https://buy.stripe.com/INITIAL',
-    75: 'https://buy.stripe.com/FOLLOWUP',
-    200: 'https://buy.stripe.com/STARTER',
-    325: 'https://buy.stripe.com/GROWTH',
-    500: 'https://buy.stripe.com/PREMIUM'
-  };
-  document.getElementById('paymentLink').href = links[price];
-}
-
-function openModal() {
-  document.getElementById('agreementModal').style.display='block';
-}
-function closeModal() {
-  document.getElementById('agreementModal').style.display='none';
-}
-
-// Accordion
-document.querySelectorAll('.accordion-header').forEach(h => {
-  h.onclick = () => {
-    const c = h.nextElementSibling;
-    c.style.display = c.style.display === 'block' ? 'none' : 'block';
-  };
-});
-</script>
-
-</body>
-</html>
+  <div class="accordion-content">No refund
